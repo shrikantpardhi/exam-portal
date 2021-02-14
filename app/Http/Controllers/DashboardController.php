@@ -11,7 +11,5 @@ class DashboardController extends Controller
     function index(){
         return view('admin.index');
     }
-    function subject(){
-        return view('admin.subject');
-    }
+    
 }

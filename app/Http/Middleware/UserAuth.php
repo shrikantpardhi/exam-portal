@@ -19,6 +19,9 @@ class UserAuth
         if($request->path()=="login" && $request->session()->has('user')){
             redirect('/dashboard');
         }
+        if($request->path()=="dashboard" && $request->session()->has('user')){
+            redirect('/');
+        }
         return $next($request);
     }
 }

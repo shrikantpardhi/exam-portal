@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ use App\Http\Controllers\UsersController;
 // Auth::routes();
 
 Route::get('/', function () {
-    return view('index');
+    return view('/dashboard');
 });
 
 
@@ -25,6 +27,18 @@ Route::get('/', function () {
 Route::post('/register', [App\Http\Controllers\UsersController::class, 'store']);
 Route::post('/login', [UsersController::class, 'login']);
 
-//dashboard controller
+//dashboard controller Navigation
 Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/subject', [DashboardController::class, 'subject']);
+
+// SubjectController
+Route::get('/subject', [SubjectController::class, 'index']);
+Route::post('/addsubject', [SubjectController::class, 'addsubject']);
+Route::get('/deletesubject/{id}', [SubjectController::class, 'deleteSubject']);
+Route::post('/addcategory', [SubjectController::class, 'addcategory']);
+Route::get('/deleteCategory/{id}', [SubjectController::class, 'deleteCategory']);
+
+// QuestionController
+Route::get('/questions', [QuestionController::class, 'index']);
+Route::post('/addquestion', [QuestionController::class, 'addquestion']);
+
+//

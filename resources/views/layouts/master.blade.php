@@ -92,7 +92,7 @@
 			<div class="sidebar-menu">
 				<ul id="accordion-menu">
 					<li>
-						<a href="" class="dropdown-toggle no-arrow">
+						<a href="/dashboard" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-house-1"></span></i><span class="mtext">Home</span>
 						</a>
 					</li>
@@ -102,7 +102,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="" class="dropdown-toggle no-arrow">
+						<a href="/questions" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-open-book-2"></span><span class="mtext">Question Bank</span>
 						</a>
 					</li>
