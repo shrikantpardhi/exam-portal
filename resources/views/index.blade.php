@@ -1,6 +1,15 @@
 @extends('layouts.landing')
 
     @section('content')
+
+{{ $errors }}
+{{-- @if($errors->any())
+  <div class="alert alert-danger" role="alert">
+      @foreach($errors->all() as $error)
+          {{ $error }}
+      @endforeach
+  </div>      
+@endif --}}
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
@@ -127,7 +136,7 @@
           <h4>Login</h4><br>
         </div>
         <div class="d-flex flex-column text-center">
-          <form method="POST" action="/login" >
+          <form method="POST" action="index/login" >
             
             <div class="form-group">
               <div class="input-group">
@@ -143,7 +152,7 @@
               </div>
             </div>
 
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            @csrf
 
             <button type="submit" class="btn btn-info btn-block btn-round">Login</button>
           </form>

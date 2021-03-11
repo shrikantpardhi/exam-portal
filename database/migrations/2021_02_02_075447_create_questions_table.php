@@ -15,6 +15,7 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
+            $table->integer('examid')->nullable();
             $table->text('title');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
@@ -27,7 +28,8 @@ class CreateQuestionsTable extends Migration
             $table->string('ans_image')->nullable();
             $table->string('subject');
             $table->string('categories');
-            $table->string('level');
+            $table->string('level')->nullable();;
+            $table->string('exam')->nullable();
             $table->timestamps();
         });
     }

@@ -20,8 +20,18 @@ class SubjectController extends Controller
     }
 
     function addsubject(Request $req){
+        $req->validate([
+            'title' => 'required',
+            'categories' => 'required',
+        ],
+        [
+            'title.required' => 'Title is required',
+            'categories.required' => 'Category is required'
+        ]
+    );
+
         $status = DB::insert('INSERT INTO `subject`(`id`, `title`, `categories`, `created_at`) 
-            values ( ?, ?, ?, ?)', [null, $req->title, implode(', ', $req->categories),  Carbon::now()->toDateTimeString()]);
+            values ( ?, ?, ?, ?)', [null, $req->title, implode(' ', $req->categories),  Carbon::now()->toDateTimeString()]);
         if($status == 1)
             return redirect('/subject');
         else

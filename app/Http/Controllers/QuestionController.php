@@ -33,12 +33,12 @@ class QuestionController extends Controller
             'answer'  => 'required',
             'subject'  => 'required',
             'category'  => 'required',
-            'level'  => 'required', 
+            'level'  => 'required',
            ]);
 
         $url1 = "";
         $url2 = "";
-        
+
         if ($request->que_img){
             $extension1 = $request->que_img->extension();
             $request->que_img->storeAs('/images', time().".".$extension1);
@@ -50,8 +50,9 @@ class QuestionController extends Controller
             $url2 = Storage::url(time().".".$extension2);
         }
 
-        
+
         $form_data = array(
+            'examid' => $request->examid,
             'title'  => $request->title,
             'description'  => $request->que_desc,
             'image'  => $url1,
@@ -63,7 +64,7 @@ class QuestionController extends Controller
             'ans_description'  => $request->ans_desc,
             'ans_image'  => $url2,
             'subject'  => $request->subject,
-            'categories' => implode(', ', $request->category),
+            'categories' => $request->category,
             'level' => $request->level
         );
 

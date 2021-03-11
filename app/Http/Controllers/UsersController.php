@@ -111,6 +111,13 @@ class UsersController extends Controller
     }
 
     function login(Request $req){
+        $req->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        // return $req->input();
+
         $user = User::where(['email'=>$req->email])->first();
         // return $user->password;
         if (!$user || !Hash::check($req->password,$user->password)){
@@ -122,6 +129,7 @@ class UsersController extends Controller
     }
     
     function register(Request $req){
+        
         return User::create();
     }
 }

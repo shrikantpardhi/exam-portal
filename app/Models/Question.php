@@ -9,8 +9,9 @@ class Question extends Model
 {
     use HasFactory;
     protected $table = 'questions';
-    
+
     protected $fillable = [
+        'examid',
         'title',
         'description',
         'image',
@@ -25,4 +26,6 @@ class Question extends Model
         'categories',
         'level',
     ];
+
+
 }

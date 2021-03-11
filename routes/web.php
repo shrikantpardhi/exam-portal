@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +20,13 @@ use App\Http\Controllers\QuestionController;
 // Auth::routes();
 
 Route::get('/', function () {
-    return view('/dashboard');
+    return view('demo');
 });
 
 
 //user management
 Route::post('/register', [App\Http\Controllers\UsersController::class, 'store']);
-Route::post('/login', [UsersController::class, 'login']);
+Route::post('index/login', [UsersController::class, 'login']);
 
 //dashboard controller Navigation
 Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -39,6 +40,11 @@ Route::get('/deleteCategory/{id}', [SubjectController::class, 'deleteCategory'])
 
 // QuestionController
 Route::get('/questions', [QuestionController::class, 'index']);
-Route::post('/addquestion', [QuestionController::class, 'addquestion']);
 
-//
+//ExamController
+Route::get("/viewexam", [ExamController::class, 'index']);
+Route::post("/addexam", [ExamController::class, 'addE']);
+Route::get("/viewexam/getExam/{id}", [ExamController::class, 'getExam']);
+// Route::get("/addexamquestions/{id}", [ExamController::class, 'addExamQuestion']);
+Route::get("/addQtoExam", [ExamController::class, 'addQtoExam']);
+Route::post("/addquestion", [ExamController::class, 'addQ']);
