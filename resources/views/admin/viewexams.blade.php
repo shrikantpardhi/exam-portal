@@ -3,13 +3,21 @@
 @section('content')
 
 @if($errors->any())
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger" >
         @foreach($errors->all() as $error)
-            {{ $error }}
+          <p> {{ $error }}</p>
         @endforeach
     </div>
 
 @endif
+
+@if ($errors->has('title'))
+<div class="error">
+    {{ $errors->first('title') }}
+</div>
+@endif
+
+
 
 @if(session()->has('success'))
 	<div class="alert alert-success">

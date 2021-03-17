@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class UsersController extends Controller
@@ -19,8 +21,13 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin/login');
+        return view('student.index');
     }
+    public function loginview()
+    {
+        return view('login');
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -40,29 +47,57 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $mobile = $request->input('mobile');
-        $password = Hash::make($request->input('password'));
-        $token = $request->input('_token');
-        // print_r($request->input());
-        $status = DB::insert('INSERT INTO `users`(`id`, `name`, `email`, `mobile`,`password`, `remember_token`, `created_at`) 
-        values ( ?, ?, ?, ?, ?, ?, ? )', [null, $name, $email, $mobile, $password, $token, Carbon::now()->toDateTimeString()]);
-        if($status == 1)
-            echo "success";
-        else
-            echo "failed";    
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email:filter',
+            'mobile' => 'required|digits:10',
+            'password' => 'required|min:8',
+        ], [
+            'name.required' => 'Name is required',
+            'email.required' => 'Email id is required',
+            'mobile.required' => 'Mobile number is required',
+            'password.required' => 'Password is required',
+        ]);
+
+        // if validation success then create an input array
+        $inputArray = array(
+            'name'      =>      $request->name,
+            'email'     =>      $request->email,
+            'mobile'    =>      $request->mobile,
+            'password'  =>      Hash::make($request->password)
+        );
+        $user = User::create($inputArray);
+
+        if(!is_null($user)) {
+            return back()->with('success', 'You have registered successfully.');
+        }
+        else {
+            return back()->with('error', 'Whoops! some error encountered. Please try again.');
+        }
     }
 
-    public function read(Request $request){
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $status = DB::select('select id from users where email = ? and password = ?', [$email, $password]);
-
-        if(count($status) == 1)
-            echo "login success";
-        else
-            echo "login failed"; 
+    public function read(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ], [
+            'email.required' => 'Email id is required',
+            'password.required' => 'Password is required'
+        ]);
+        $inputArray = array(
+            'email'     =>      $request->email,
+            'password'  =>      $request->password
+        );
+        $userCredentials = $request->only('email', 'password');
+        if (Auth::attempt($userCredentials)) {
+            $request->session()->regenerate();
+            return redirect('/student')->with('success', 'Login Successful.');
+            // return redirect('/student')->intended('/student');
+        }
+        else {
+            return back()->with('error', 'Whoops! invalid username or password.');
+        }
     }
 
     /**
@@ -110,26 +145,10 @@ class UsersController extends Controller
         //
     }
 
-    function login(Request $req){
-        $req->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ]);
-
-        // return $req->input();
-
-        $user = User::where(['email'=>$req->email])->first();
-        // return $user->password;
-        if (!$user || !Hash::check($req->password,$user->password)){
-            return "Username or password is not matched";
-        } else {
-            $req->session()->put('user',$user);
-            return redirect('/dashboard');
-        }
-    }
-    
-    function register(Request $req){
-        
-        return User::create();
+    // ------------------- [ User logout function ] ----------------------
+    public function logout(Request $request ) {
+        $request->session()->flush();
+        Auth::logout();
+        return Redirect('/');
     }
 }

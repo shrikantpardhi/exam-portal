@@ -29,16 +29,17 @@
                     <ul class="navbar-nav text-uppercase ml-auto">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Home</a></li>
                         {{-- <li class="nav-item" ><a class="nav-link js-scroll-trigger" href="{{ route('login') }}">Login</a></li> --}}
-                        <li class="nav-item" ><a class="nav-link js-scroll-trigger" data-toggle="modal" href="" data-target="#loginModal">Login</a></li>                      
+                        {{-- <li class="nav-item" ><a class="nav-link js-scroll-trigger"  href="/login" >Login</a></li> --}}
+                        <li class="nav-item" ><a class="nav-link js-scroll-trigger" data-toggle="modal" href="" data-target="#loginModal">Login</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" data-toggle="modal" href="" data-target="#registerModal">Register</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        
+
         @yield('content')
-    
+
         <!-- Footer-->
         <footer class="footer py-4">
             <div class="container">
@@ -56,8 +57,8 @@
                 </div>
             </div>
         </footer>
-      
-       
+
+
         <!-- Bootstrap core JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>

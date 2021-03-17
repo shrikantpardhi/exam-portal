@@ -1,5 +1,9 @@
 @extends('layouts.master')
-   
+
+if ($request->session()->has('users')) {
+    //
+}
+
     @section('top-data')
         <div class="row">
             <div class="col-xl-3 mb-30">
@@ -98,7 +102,7 @@
                             </div>
                         </td>
                     </tr>
-                    
+
                 </tbody>
             </table>
         </div>

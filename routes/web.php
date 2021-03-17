@@ -20,13 +20,15 @@ use App\Http\Controllers\ExamController;
 // Auth::routes();
 
 Route::get('/', function () {
-    return view('demo');
+    return view('index');
 });
 
 
 //user management
 Route::post('/register', [App\Http\Controllers\UsersController::class, 'store']);
-Route::post('index/login', [UsersController::class, 'login']);
+Route::get('/login', [UsersController::class, 'loginview']);
+Route::post('/login', [UsersController::class, 'read']);
+Route::get('logout', [UsersController::class, 'logout']);
 
 //dashboard controller Navigation
 Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -45,6 +47,9 @@ Route::get('/questions', [QuestionController::class, 'index']);
 Route::get("/viewexam", [ExamController::class, 'index']);
 Route::post("/addexam", [ExamController::class, 'addE']);
 Route::get("/viewexam/getExam/{id}", [ExamController::class, 'getExam']);
-// Route::get("/addexamquestions/{id}", [ExamController::class, 'addExamQuestion']);
 Route::get("/addQtoExam", [ExamController::class, 'addQtoExam']);
 Route::post("/addquestion", [ExamController::class, 'addQ']);
+
+
+// student section
+Route::get('/student', [UsersController::class, 'index']);

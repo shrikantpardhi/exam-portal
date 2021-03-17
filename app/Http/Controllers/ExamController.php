@@ -22,7 +22,7 @@ class ExamController extends Controller
     }
 
     function addE(Request $request){
-        $request->validate([
+        $this->validate($request,[
             'title' => 'required',
             'desc' => 'required',
             'subject' => 'required',

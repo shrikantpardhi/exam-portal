@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if ($errors->any())
+{{-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -10,15 +10,14 @@
             @endforeach
         </ul>
     </div>
-@endif
-
+@endif --}}
 
 @if(session()->has('success'))
 	<div class="alert alert-success">
 		{{ session()->get('success') }}
 	</div>
 @endif
-<br />	
+<br />
 
 	<div class="page-title">
 		<h3>Subject | Categories</h3>
@@ -37,7 +36,9 @@
 								<label for="subjectTitle">Subject Title</label>
 								<input type="text" class="form-control" name="title" placeholder="Title">
 							</div>
-
+                            @error('title')
+                            <div class="alert alert-light-danger color-danger">{{ $message }}</div>
+                            @enderror
 							<div class="form-group">
 								<label>Select Exam Category</label>
 								<select class="choices form-select multiple-remove" multiple="multiple" name="categories[]">
@@ -46,6 +47,9 @@
 									@endforeach
 								</select>
 							</div>
+                            @error('categories')
+                            <div class="alert alert-light-danger color-danger">{{ $message }}</div>
+                            @enderror
 							{{ @csrf_field() }}
 							<button type="submit" class="btn btn-primary mb-2">Add Subject</button>
 						</form>
@@ -67,7 +71,9 @@
 								<label for="examTitle">Exam Title</label>
 								<input type="text" class="form-control" name="title" placeholder="Title">
 							</div>
-
+                            @error('title')
+                            <div class="alert alert-light-danger color-danger">{{ $message }}</div>
+                            @enderror
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button type="submit" class="btn btn-primary mb-2">Add Category</button>
 						</form>
@@ -137,5 +143,5 @@
 				</div>
 			</div>
 		</div>
-	
+
 @endsection
